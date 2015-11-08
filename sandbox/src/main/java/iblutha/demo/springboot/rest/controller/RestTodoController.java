@@ -18,10 +18,14 @@ import java.util.List;
 @RequestMapping("/rest")
 public class RestTodoController {
 
-    @Inject
     private TodoRepository repository;
-    @Inject
     private TodoJpaToJsonMapper mapper;
+
+    @Inject
+    public RestTodoController(TodoRepository repository, TodoJpaToJsonMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @RequestMapping("/todo/{id}")
     public JsonTodo getTodo(@PathVariable("id") Long todoId) {
