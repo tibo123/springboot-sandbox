@@ -2,8 +2,15 @@ package iblutha.demo.springboot.rest.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import iblutha.demo.springboot.utils.LocalDateJsonDeserializer;
+import iblutha.demo.springboot.utils.LocalDateJsonSerializer;
+import iblutha.demo.springboot.utils.LocalDateTimeJsonDeserializer;
+import iblutha.demo.springboot.utils.LocalDateTimeJsonSerializer;
 
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by tibo on 07/11/2015.
@@ -11,12 +18,18 @@ import java.util.Date;
 @JsonDeserialize(builder=JsonTodo.Builder.class)
 public class JsonTodo {
 
+    @NotNull
     private Integer expId;
+    @NotNull
     private String title;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    @JsonSerialize(using = LocalDateJsonSerializer.class)
+    private LocalDate startDate;
+    @JsonSerialize(using = LocalDateTimeJsonSerializer.class)
+    private LocalDateTime endDate;
     private boolean isCurrent;
+
+    private JsonTodo(){}
 
     private JsonTodo(Builder builder){
         this.expId = builder.expId;
@@ -45,8 +58,10 @@ public class JsonTodo {
         int expId;
         String title;
         String description;
-        Date startDate;
-        Date endDate;
+        @JsonDeserialize(using = LocalDateJsonDeserializer.class)
+        LocalDate startDate;
+        @JsonDeserialize(using = LocalDateTimeJsonDeserializer.class)
+        LocalDateTime endDate;
         boolean isCurrent;
 
         public Builder expId(int expId) {
@@ -64,12 +79,12 @@ public class JsonTodo {
             return this;
         }
 
-        public Builder startDate(Date startDate) {
+        public Builder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder endDate(Date endDate) {
+        public Builder endDate(LocalDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
@@ -96,11 +111,11 @@ public class JsonTodo {
         return this.description;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 

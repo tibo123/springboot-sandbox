@@ -2,7 +2,8 @@ package iblutha.demo.springboot.jpa.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Created by tibo on 07/11/2015.
@@ -20,9 +21,9 @@ public class JpaTodo implements Serializable {
     @Column
     private String description;
     @Column
-    private Date startDate;
+    private LocalDate startDate;
     @Column
-    private Date endDate;
+    private LocalDateTime endDate;
     @Column
     private boolean isCurrent;
 
@@ -59,8 +60,8 @@ public class JpaTodo implements Serializable {
         int expId;
         String title;
         String description;
-        Date startDate;
-        Date endDate;
+        LocalDate startDate;
+        LocalDateTime endDate;
         boolean isCurrent;
 
         public Builder id(long id) {
@@ -83,12 +84,12 @@ public class JpaTodo implements Serializable {
             return this;
         }
 
-        public Builder startDate(Date startDate) {
+        public Builder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Builder endDate(Date endDate) {
+        public Builder endDate(LocalDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
@@ -119,11 +120,11 @@ public class JpaTodo implements Serializable {
         return this.description;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return this.startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
